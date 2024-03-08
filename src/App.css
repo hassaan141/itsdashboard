@@ -1,16 +1,248 @@
-.App {
-  text-align: center;
+*{
+  background-color: #21252b;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: #f8f8f8;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.gTNrZz {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #282c34;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: white;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.Patrols {
+  width: 100%;
+  max-width: 460px; /* Adjust based on your layout */
+  background-color: #333;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.Headerlist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #21252b;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 10px;
+  text-align: left;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+}
+
+.Headerlist li {
+  padding: 5px 10px;
+}
+
+.ScrollableList {
+  overflow-y: auto;
+  max-height: 200px;
+  background: #282c34;
+}
+
+.ScrollableList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.ScrollableList li {
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  color: #ccc;
+}
+
+.ScrollableList a {
+  color: #61dafb;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.ScrollableList button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Add more specific styles for icons, online/offline indicators, etc. */
+
+/* Replace this with the actual video grid styling from your code */
+/* .video-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.video-container {
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
+
+
+.box {
+  background-color: rgb(56, 54, 54);
+  border-radius: 15px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  padding: 20px;
+  margin: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  width: 50%; /* Adjusted size for the box */
+  height: 50%; /* Adjusted size for the box */
+  grid-gap: 0; /* No gap between grid items */
+}
+
+.box.full {
+  grid-template-columns: 1fr; /* Full width for 1 video */
+}
+
+.box.half {
+  grid-template-columns: 1fr 1fr; /* Two columns for 2 videos */
+}
+
+.box.quarter {
+  grid-template-columns: repeat(2, 1fr); /* Two columns, but will adjust for 3 or 4 videos */
+  grid-template-rows: repeat(2, 1fr); /* Two rows for 3 or 4 videos */
+}
+
+/* vid1 */
+
+.video1 {
+  position:relative;
+  width: 100%; /* or a specific width */
+  /* Padding-top for 16:9 Aspect Ratio. It's 9/16 = 56.25% */
+  padding-top: 50.25%;
+  padding-bottom: 10;
+  overflow: hidden;
+  
+}
+
+.video1 video {
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 90%;
+  object-fit: cover; /* Cover the container without losing aspect ratio */
+}
+
+.video2 {
+  position: relative;
+  width: 100%; /* or a specific width */
+  /* Padding-top for 16:9 Aspect Ratio. It's 9/16 = 56.25% */
+  padding-top: 56.25%;
+  overflow: hidden;
+}
+
+.video2 video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 90%;
+  object-fit: cover; /* Cover the container without losing aspect ratio */
+}
+
+.video3 {
+  position: relative;
+  width: 100%; /* or a specific width */
+  /* Padding-top for 16:9 Aspect Ratio. It's 9/16 = 56.25% */
+  padding-top: 56.25%;
+  overflow: hidden;
+}
+
+.video3 video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 90%;
+  object-fit: cover; /* Cover the container without losing aspect ratio */
+}
+
+.video4 {
+  position: relative;
+  width: 100%; /* or a specific width */
+  /* Padding-top for 16:9 Aspect Ratio. It's 9/16 = 56.25% */
+  padding-top: 56.25%;
+  overflow: hidden;
+}
+
+.video4 video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 90%;
+  object-fit: cover; /* Cover the container without losing aspect ratio */
+}
+
+/* vid1 */
+
+@media (min-width: 400px) {
+  .box {
+    grid-template-columns: repeat(auto-fill, minmax(48%, 1fr));
   }
+}
+.noCamera {
+  background-color: grey;
+  border-radius: 10px;
+  margin: 10rem;
+  margin-left: 18rem; 
+  height: 15%;
+  width: 70%;
+
+}
+.videotext {
+  text-align: center;
+  color: #fff;
+  font-size: 24px;
+  width: 100%;
+  grid-gap: 0;
+  background-color: grey;
+}
+
+.box video {
+  width: 92%;
+  height: 92%;
+  object-fit: contain;
+}
+
+/* Additional styling for the 'X' button */
+.box button {
+  background-color: #ccc;
+  border: none;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 .App-header {
@@ -35,4 +267,62 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.gTNrZz {
+  display: flex;
+  border: 1px solid #ccc;
+  flex-direction: column;
+  align-items: center; /* You can adjust this value to change the alignment */
+  height: fit-content;
+  width: fit-content;
+  background-color: #282c34;
+}
+
+.Patrols {
+  border: 1px solid #ccc;
+}
+
+.Headerlist {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  background-color: #e0e0e0; /* Optional background color */
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+.ScrollableList {
+  overflow-y: auto;
+  max-height: 200px; /* Set a max height to enable scrolling if the list becomes too long */
+  border: 1px solid #ccc;
+}
+
+.ScrollableList ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 10px; /* Adjust the gap between items as needed */
+  justify-content: space-between
+}
+
+
+.noSpacing {
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply the 'noSpacing' class to the div elements */
+.div1, .div2, .div3, .div4 {
+  display: inline-block; /* or use 'inline' if you want them inline without block behavior */
+  margin: 0;
+  padding: 0;
+}
+
+.titlemain{
+  color: white;
+  text-align: center;
+  padding-top: 3rem;
+  font-size: 40px;
 }
