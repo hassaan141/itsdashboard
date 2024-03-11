@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css'; 
+import EventsMonitoring from './Events/EventsMonitoring';
+
 
 function VideoPlayer() {
   const [showVideo1, setShowVideo1] = useState(false);
@@ -9,9 +11,21 @@ function VideoPlayer() {
   const [showText, setText] = useState(true);
   const activeVideos = [showVideo1, showVideo2, showVideo3, showVideo4].filter(Boolean).length;
   const boxClass = `box ${activeVideos === 1 ? "full" : activeVideos === 2 ? "half" : "quarter"}`;
+
   
+  const [boldRows, setBoldRows] = useState({});
+  const toggleBoldRow = (rowIndex) => {
+    setBoldRows((currentBoldRows) => ({
+      ...currentBoldRows,
+      [rowIndex]: !currentBoldRows[rowIndex],
+    }));
+  };
 
-
+  const eventsData = [
+    { icon: '🚗', description: 'Camera 3 Detected Congestion', time: '15:20' },
+    { icon: '🚨', description: 'Camera 6 Detected an Accident', time: '12:33' },
+    { icon: '🔰', description: 'Camera 1 Detected a Near Miss', time: '9:50' },
+  ];
 
   useEffect(() => {
     if (!showVideo1 && !showVideo2 && !showVideo3 && !showVideo4) {
@@ -23,99 +37,99 @@ function VideoPlayer() {
 
   return (
     <div>
-      <h1 className="titlemain">ITS DEMO SYSTEM</h1>
       <div className="gTNrZz">
-      <h2>Live Monitoring List</h2>
-      <div className='Patrols'>
-        <ul className = "Headerlist">
-          <li>Camera </li>
-          <li>Type </li>
-          <li>Time </li>
-          <li>Duration </li>
-        </ul>
-        <div className='ScrollableList'>
-          <ul>
-          <li>
-              <a href="#" onClick={(e) => {
-                e.preventDefault(); // Prevent the default action
-                setShowVideo1(true);
-                setText(false);
-                }
-                }>Camera1
-              </a>
-              <button onClick={(e) => {
-                e.preventDefault(); // Prevent the default action
-                setShowVideo1(false);
-                } 
-              }> X </button>
-            </li>
-            <li>Type1 </li>
-            <li>Time1 </li>
-            <li>Duration1 </li>
-          </ul>
-          <ul>
-            <li>
-              <a href="#" onClick={(e) => {
-                e.preventDefault(); // Prevent the default action
-                setShowVideo2(true);
-                setText(false);
-                }}>Camera2
-              </a>
-              <button onClick={(e) => {
-                e.preventDefault(); // Prevent the default action
-                setShowVideo2(false);
-                setText(false);
-                } 
-              }> X </button>
-            </li>
-            <li>Type2</li>
-            <li>Time2</li>
-            <li>Duration2</li>
-          </ul>
-          <ul>
-          <li>
-              <a href="#" onClick={(e) => {
-                e.preventDefault(); // Prevent the default action
-                setShowVideo3(true);
-                setText(false);
-                }}>Camera3
-              </a>
-              <button onClick={(e) => {
-                e.preventDefault(); // Prevent the default action
-                setShowVideo3(false);
-                } 
-              }> X </button>
-            </li>
-            <li>Type3</li>
-            <li>Time3</li>
-            <li>Duration3</li>
-          </ul>
-          <ul>
-          <li>
-              <a href="#" onClick={(e) => {
-                e.preventDefault(); // Prevent the default action
-                setShowVideo4(true);
-                setText(false);
-                }}>Camera4
-              </a>
-              <button onClick={(e) => {
-                e.preventDefault(); // Prevent the default action
-                setShowVideo4(false);
-                } 
-              }> X </button>
-            </li>
-            <li>Type4</li>
-            <li>Time4</li>
-            <li>Duration4</li>
-          </ul>
-      </div>
-      </div>
+       <h2>Camera Monitoring List</h2>
+       <div className='Patrols'>
+    <table className="Headerlist">
+        <thead>
+            <tr>
+                <th>Camera</th>
+                <th>Monitor</th>
+                <th>Intersection</th>
+            </tr>
+        </thead>
+        <tbody className='ScrollableList'>
+            <tr>
+                <td>
+                    <a href="#" onClick={(e) => {
+                        e.preventDefault(); // Prevent the default action
+                        setShowVideo1(true);
+                        setText(false);
+                    }}>Camera1
+                    </a>
+                    <button className='xButton' onClick={(e) => {
+                        e.preventDefault(); // Prevent the default action
+                        setShowVideo1(false);
+                    }}> X </button>
+                </td>
+                <td>TC, AC, NM</td>
+                <td>Dixie & Dundas</td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="#" onClick={(e) => {
+                        e.preventDefault(); // Prevent the default action
+                        setShowVideo2(true);
+                        setText(false);
+                    }}>Camera2
+                    </a>
+                    <button className='xButton' onClick={(e) => {
+                        e.preventDefault(); // Prevent the default action
+                        setShowVideo2(false);
+                        setText(false);
+                    }}> X </button>
+                </td>
+                <td>TC, AC, NM</td>
+                <td>Dixie & Dundas</td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="#" onClick={(e) => {
+                        e.preventDefault(); // Prevent the default action
+                        setShowVideo3(true);
+                        setText(false);
+                    }}>Camera3
+                    </a>
+                    <button className='xButton' onClick={(e) => {
+                        e.preventDefault(); // Prevent the default action
+                        setShowVideo3(false);
+                    }}> X </button>
+                </td>
+                <td>TC, AC, NM</td>
+                <td>Dixie & Dundas</td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="#" onClick={(e) => {
+                        e.preventDefault(); // Prevent the default action
+                        setShowVideo4(true);
+                        setText(false);
+                    }}>Camera4
+                    </a>
+                    <button className='xButton' onClick={(e) => {
+                        e.preventDefault(); // Prevent the default action
+                        setShowVideo4(false);
+                    }}> X </button>
+                </td>
+                <td>TC, AC, NM</td>
+                <td>Dixie & Dundas</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+          <div className='buttoncontainer'>
+            <button className='addbutton button'>Add Camera</button>
+            <button className='editbutton button'>Edit</button>
+            <button className='removebutton button'>Remove Camera</button>
+          </div>
       </div>
       
       <div  className={`box ${boxClass}`}>
         {showText && (
         <div className='noCamera'>
           <h2 className='videotext'> Please Select A Video.</h2>
+          <h6 className='videotext'> Note: For best usability, active camera displays have been limited to a maximum of four.</h6>
         </div>        
         )}
 
@@ -135,7 +149,7 @@ function VideoPlayer() {
             <video width="100%" height="100%" autoPlay>
               <source src={`${process.env.PUBLIC_URL}/vid2.mp4`} type="video/mp4" />
               Your browser does not support the video tag.
-            </video>s
+            </video>
           </div>
         )}
 
@@ -158,9 +172,9 @@ function VideoPlayer() {
         )}
       </div>
 
-          
-
-
+      <div className='eventMonitoring'>
+       <EventsMonitoring events={eventsData} />
+      </div>
   </div>
   ) 
 }

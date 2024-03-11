@@ -1,0 +1,68 @@
+.events-monitoring {
+    background-color: #2d2f34;
+    color: #fff;
+    border-radius: 8px;
+    max-width: 300px;
+    /* border: 1px solid red; */
+    margin-right: 30px;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    padding: 10px; /* Padding inside the div, which adds to the content size */
+    font-size: 12px;
+  }
+  
+  .events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .new-events-count {
+    background-color: #ff0000; /* Replace with the actual color used for notification */
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 15px;
+    font-size: 0.8em;
+  }
+  
+  .event-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #21252b;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-left: 5px solid transparent; /* Replace or adjust based on actual style */
+  }
+  
+  .event-icon {
+    /* Insert your icon styling here */
+  }
+  
+  .event-description {
+    flex-grow: 1;
+    margin: 0 10px;
+  }
+  
+  .event-time {
+    /* Style for the time */
+  }
+  
+  /* Custom styling for icons based on event type */
+  .event-item.congestion .event-icon {
+    border-left-color: red;
+  }
+  
+  .event-item.accident .event-icon {
+    border-left-color: orange;
+  }
+  
+  .event-item.near-miss .event-icon {
+    border-left-color: green;
+  }
+  
+  /* Add additional CSS as needed */
+  

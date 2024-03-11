@@ -1,114 +1,97 @@
-/* NavStyles.css */
+:root {
+  --background-nav: #29292c; /* Black background for the navbar */
+  --icon-color: #fff; /* White color for the icons */
+  --icon-size: 32px; /* Standard icon size */
+  --nav-width: 100px; /* Width of the navbar */
+  --nav-padding: 16px; /* Padding inside the navbar */
+  --nav-item-gap: 2rem; /* Space between nav items */
+  --logout-icon-size: 48px; /* Size of the logout icon */
+  --logout-bg: #29292c; /* Logout background, same as nav for uniform color */
+  --logout-margin-top: auto; /* Push logout to the bottom */
+
+}
 
 .NavWrapper {
-  position: sticky;
-  top: var(--page-gutter);
-  display: flex;
-  z-index: 99999999;
-  flex-direction: column;
-  align-items: center;
-  height: calc(100vh - 2 * var(--page-gutter));
-  width: fit-content;
-  background: var(--background-sections-page);
-  border: 2px solid var(--border-1);
-  border-radius: var(--radius-nav-border);
-  padding: 1rem;
-  gap: 1.25rem;
-}
-
-.NavWrapper .NavBody > div {
+  border: 1px solid green;
+  background-color: var(--background-nav);
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-}
-
-.NavWrapper svg path {
-  stroke-width: 1;
-}
-
-.NavWrapper .analysis svg path {
-  stroke-width: 2 !important;
-}
-
-@media (max-width: 768px) {
-  .NavWrapper {
-    position: absolute;
-    background: var(--surface-2);
-    left: 0;
-    top: 3.125rem;
-    right: 0;
-    height: calc(100vh - 3.125rem);
-    border: none;
-    min-width: 100%;
-    border-radius: 0;
-  }
-
-  .NavWrapper .NavBody > div {
-    border-bottom: 2px solid var(--border-1);
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-  }
-}
-
-.NavWrapper h1 {
-  font-size: 2.375rem;
-  padding: 0;
-}
-
-.link, .NavItem {
-  display: flex;
   align-items: center;
-  gap: 0.5rem;
-  border-radius: var(--radius-nav-item);
-  cursor: pointer;
-  padding: 0.5rem;
-  text-decoration: none;
-  color: var(--text-001);
-  background: var(--surface-2);
-}
-
-.link svg path, .NavItem svg path {
-  stroke: var(--text-001);
-}
-
-.link:hover:not(.AirMatrixLogo), 
-.NavItem:hover:not(.AirMatrixLogo), 
-.NavItem:focus:not(.AirMatrixLogo), 
-.NavItem.active:not(.AirMatrixLogo), 
-.NavItem.DashboardPage {
-  background: var(--background-hover-default) !important;
-}
-
-/* Additional hover, focus, and active styles here */
-
-.SignOutMobile {
-  margin-top: 1.5rem;
-}
-
-.Logout {
-  position: absolute;
-  bottom: 1.5rem;
-}
-
-.NavWrapper svg {
-  width: 32px;
-  height: 32px;
-  /* Note: .currentPage style needs to be dynamically added via class or inline styles */
+  padding: var(--nav-padding) 0;
+  width: var(--nav-width);
+  height: 90vh;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 10rem;
+  color: var(--icon-color);
+  
 }
 
 .MenuHeader {
+  color: var(--icon-color);
+  background: var(--background-nav);
+}
+
+.NavLogo {
+  color: var(--icon-color);
+  background-color: var(--background-nav);
+  width: var(--icon-size);
+  height: var(--icon-size);
+  margin-bottom: var(--nav-item-gap);
+ 
+}
+
+.NavBody {
+  color: var(--icon-color);
   display: flex;
-  margin: 0 auto;
-  margin-bottom: 1.75rem;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3rem;
+  gap: var(--nav-item-gap);
+  background-color: var(--background-nav); /* Ensure uniform color */
 }
 
-.MenuHeader .AirMatrixLogo > svg {
-  height: 48px;
-  width: 48px;
+.NavItem {
+  color: var(--icon-color);
+  background-color: var(--background-nav);
+  width: var(--icon-size);
+  height: var(--icon-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .MenuHeader, .MenuHeader .AirMatrixLogo > svg {
-    display: none;
-  }
+.NavItem img {
+  
+  background-color: var(--background-nav);
+  width: 100%;
+  height: auto;
+  color: var(--icon-color);
+}
+
+/* Removed hover background color and padding to maintain icon size */
+.NavItem:hover, .NavItem.active {
+  /* You can keep this selector if you want to add other styles on hover/active */
+}
+
+.Logout {
+  background-color: var(--background-nav);
+  background-color: var(--background-nav);
+  padding-top: 23rem;
+  margin-top: var(--logout-margin-top);
+  width: var(--logout-icon-size);
+  height: var(--logout-icon-size);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.Logout img {
+  background-color: var(--background-nav);
+  width: 40%; /* Smaller than the container to create padding */
+  height: auto;
 }
