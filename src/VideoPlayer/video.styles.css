@@ -64,6 +64,23 @@
   .xButton:focus{
     outline: none;
   }
+
+  .-Button{
+    background: red;       /* No background */
+    color: inherit;         /* Inherits the color from its parent */
+    border: none;           /* No border */
+    border-radius: 40px;             /* No padding */
+    margin-left: 4px;              /* No margin */
+    font: inherit;          /* Inherits font from its parent */
+    font-size: 10px;
+    cursor: pointer;        /* Cursor appears as a pointer to indicate it's clickable */
+    outline: inherit;       /* Default outline behavior */
+    line-height: normal;    /* Normal line height */
+    overflow: visible;      /* No overflow */
+    text-transform: none;   /* No text capitalization */
+    appearance: none;       /* Removes platform-specific styling */
+    box-shadow: none;       /* No box shadow */
+}
   
   .xButton{
       background: red;       /* No background */
@@ -105,13 +122,13 @@
     margin: auto;
     position: fixed;
     top: 55%;
-    left: 42%;
+    left: 40%;
     transform: translate(-50%, -50%);
     z-index: 1000;
-    width: 60%; /* Adjusted size for the box */
+    width: 57%; /* Adjusted size for the box */
     height: 75%; /* Adjusted size for the box */
     grid-gap: 0; /* No gap between grid items */
-    border: 1px solid green;
+    border: 1px solid blue;
     
   }
   

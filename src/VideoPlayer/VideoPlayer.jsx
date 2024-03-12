@@ -71,7 +71,7 @@ function VideoPlayer() {
                 <th>Camera</th>
                 <th>Monitor</th>
                 <th>Intersection</th>
-                {showDelete && <th>Remove</th>}
+                {showDelete /*&& <th>Remove</th>} */}
             </tr>
         </thead>
         <tbody className='ScrollableList'>
@@ -97,7 +97,7 @@ function VideoPlayer() {
                   <td>{row.intersection}</td>
                   {showDelete && (
                     <td>
-                      <button className='xButton' onClick={() => deleteRow(row.id)}> - </button>
+                      <button className='-Button' onClick={() => deleteRow(row.id)}> - </button>
                     </td>
                   )}
                 </tr>
