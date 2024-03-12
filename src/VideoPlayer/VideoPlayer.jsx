@@ -3,6 +3,23 @@ import './video.styles.css';
 import EventsMonitoring from '../Events/EventsMonitoring';
 import Test from "../test.json"
 
+// function Modal({ isOpen, onClose }) {
+//   if (!isOpen) return null;
+
+//   return (
+//     <>
+//       <div className="backdrop" onClick={onClose} />
+//       <div className="modal">
+//         <h1> Add Your New Camera</h1>
+//         <p> Please select the type of camera and the specific traffic condiitons you would like
+//         to monitor in the camera feed</p>
+//         <h2> Camera Name</h2>
+//         <button onClick={onClose}>Cancel</button>
+//         <button>Add Camera</button>
+//       </div>
+//     </>
+//   );
+// }
 
 function VideoPlayer() {
   const [showVideo1, setShowVideo1] = useState(false);
@@ -10,15 +27,33 @@ function VideoPlayer() {
   const [showVideo3, setShowVideo3] = useState(false);
   const [showVideo4, setShowVideo4] = useState(false);
   const [showText, setText] = useState(true);
+
+
+  const [showDelete, setShowDelete] = useState(false); // New state for showing delete buttons
+  // Managing rows in state
+  const [rows, setRows] = useState([
+    { id: 1, camera: "Camera1", monitor: "TC, AC, NM", intersection: "Dixie & Dundas", showVideo: showVideo1, setShowVideo: setShowVideo1 },
+    { id: 2, camera: "Camera2", monitor: "TC, AC, NM", intersection: "Dixie & Dundas", showVideo: showVideo2, setShowVideo: setShowVideo2 },
+    { id: 3, camera: "Camera3", monitor: "TC, AC, NM", intersection: "Dixie & Dundas", showVideo: showVideo3, setShowVideo: setShowVideo3 },
+    { id: 4, camera: "Camera4", monitor: "TC, AC, NM", intersection: "Dixie & Dundas", showVideo: showVideo4, setShowVideo: setShowVideo4 },
+  ]);
+  const toggleShowDelete = () => {
+    setShowDelete(!showDelete);
+  };
+  const deleteRow = (id) => {
+    setRows(rows.filter(row => row.id !== id));
+  };
+  
+
+
+  // const [isModalOpen, setIsModalOpen] = useState(false);
  
   const activeVideos = [showVideo1, showVideo2, showVideo3, showVideo4].filter(Boolean).length;
   const boxClass = `box ${activeVideos === 1 ? "full" : activeVideos === 2 ? "half" : "quarter"}`;
 
   const boundingBoxStyle = {
     backgroundColor:'transparent',
-
     position: 'relative',
-
     border: '2px solid red',
     // Directly use the values without template literals
     top: `${Test.data.bounding_box.top_left.y}px`,
@@ -53,82 +88,45 @@ function VideoPlayer() {
                 <th>Camera</th>
                 <th>Monitor</th>
                 <th>Intersection</th>
+                {showDelete && <th>Remove</th>}
             </tr>
         </thead>
         <tbody className='ScrollableList'>
-            <tr>
-                <td>
-                    <a href="#" onClick={(e) => {
+              {rows.map((row, index) => (
+                <tr key={row.id}>
+                  <td>{row.camera}
+                  <button className='xButton' onClick={(e) => {
                         e.preventDefault(); // Prevent the default action
-                        setShowVideo1(true);
-                        setText(false);
-                    }}>Camera1
-                    </a>
-                    <button className='xButton' onClick={(e) => {
-                        e.preventDefault(); // Prevent the default action
-                        setShowVideo1(false);
+                        if(row.id ==1) setShowVideo1(false);
+                        if(row.id ==2) setShowVideo2(false);
+                        if(row.id ==3) setShowVideo3(false);
+                        if(row.id ==4) setShowVideo4(false);
                     }}> X </button>
-                </td>
-                <td>TC, AC, NM</td>
-                <td>Dixie & Dundas</td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="#" onClick={(e) => {
+                    <button className='yButton' onClick={(e) => {
                         e.preventDefault(); // Prevent the default action
-                        setShowVideo2(true);
+                        if(row.id ==1) setShowVideo1(true);
+                        if(row.id ==2) setShowVideo2(true);
+                        if(row.id ==3) setShowVideo3(true);
+                        if(row.id ==4) setShowVideo4(true);
                         setText(false);
-                    }}>Camera2
-                    </a>
-                    <button className='xButton' onClick={(e) => {
-                        e.preventDefault(); // Prevent the default action
-                        setShowVideo2(false);
-                        setText(false);
-                    }}> X </button>
-                </td>
-                <td>TC, AC, NM</td>
-                <td>Dixie & Dundas</td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="#" onClick={(e) => {
-                        e.preventDefault(); // Prevent the default action
-                        setShowVideo3(true);
-                        setText(false);
-                    }}>Camera3
-                    </a>
-                    <button className='xButton' onClick={(e) => {
-                        e.preventDefault(); // Prevent the default action
-                        setShowVideo3(false);
-                    }}> X </button>
-                </td>
-                <td>TC, AC, NM</td>
-                <td>Dixie & Dundas</td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="#" onClick={(e) => {
-                        e.preventDefault(); // Prevent the default action
-                        setShowVideo4(true);
-                        setText(false);
-                    }}>Camera4
-                    </a>
-                    <button className='xButton' onClick={(e) => {
-                        e.preventDefault(); // Prevent the default action
-                        setShowVideo4(false);
-                    }}> X </button>
-                </td>
-                <td>TC, AC, NM</td>
-                <td>Dixie & Dundas</td>
-            </tr>
-        </tbody>
+                    }}> ✓ </button></td>
+                  <td>{row.monitor}</td>
+                  <td>{row.intersection}</td>
+                  {showDelete && (
+                    <td>
+                      <button className='xButton' onClick={() => deleteRow(row.id)}> - </button>
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
     </table>
 </div>
 
           <div className='buttoncontainer'>
             <button className='addbutton button'>Add Camera</button>
             <button className='editbutton button'>Edit</button>
-            <button className='removebutton button'>Remove Camera</button>
+            <button onClick={toggleShowDelete} className='removebutton button'>Remove Camera</button>
           </div>
       </div>
       
@@ -188,3 +186,24 @@ function VideoPlayer() {
 }
 
 export default VideoPlayer;
+
+
+{/* <td>
+                    <a>Camera1</a>
+                    <button className='xButton' onClick={(e) => {
+                        e.preventDefault(); // Prevent the default action
+                        setShowVideo1(false);
+                    }}> X </button>
+                    <button className='yButton' onClick={(e) => {
+                        e.preventDefault(); // Prevent the default action
+                        setShowVideo1(true);
+                        setText(false);
+                    }}> ✓ </button>
+                </td>
+                <td>TC, AC, NM</td>
+                <td>Dixie & Dundas</td>
+                {showDelete && (
+                    <td>
+                      <button onClick={() => deleteRow(id)}> - </button>
+                    </td>
+                  )} */}

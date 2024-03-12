@@ -66,7 +66,7 @@
   }
   
   .xButton{
-      background: none;       /* No background */
+      background: red;       /* No background */
       color: inherit;         /* Inherits the color from its parent */
       border: none;           /* No border */
       padding: 0;             /* No padding */
@@ -80,7 +80,21 @@
       appearance: none;       /* Removes platform-specific styling */
       box-shadow: none;       /* No box shadow */
   }
-  
+  .yButton{
+    background: green;       /* No background */
+    color: inherit;         /* Inherits the color from its parent */
+    border: none;           /* No border */
+    padding: 0;             /* No padding */
+    margin-left: 4px;              /* No margin */
+    font: inherit;          /* Inherits font from its parent */
+    cursor: pointer;        /* Cursor appears as a pointer to indicate it's clickable */
+    outline: inherit;       /* Default outline behavior */
+    line-height: normal;    /* Normal line height */
+    overflow: visible;      /* No overflow */
+    text-transform: none;   /* No text capitalization */
+    appearance: none;       /* Removes platform-specific styling */
+    box-shadow: none;       /* No box shadow */
+  }
   .box {
     background-color: rgb(56, 54, 54);
     border-radius: 15px;
@@ -196,14 +210,12 @@
   .noCamera {
     background-color: grey;
     border-radius: 10px;
-    /* margin: 10rem; 
-    margin-left: 18rem;  */
-    height: 15%;
+    height: 20%;
     width: 70%;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); 
   
   }
   .videotext {
@@ -213,7 +225,6 @@
     grid-gap: 0;
     background-color: grey;
   }
-  
   
   .box video {
     width: 92%;
@@ -316,16 +327,25 @@
     border: 1px solid red;
   }
   
-  .border-vp{
-    border: 3px solid green;
+
+  .backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* semi-transparent */
+    backdrop-filter: blur(5px); /* blurs the background */
+    z-index: 10;
   }
   
-  .border-nav{
-    border: 3px solid orange;
-  
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    z-index: 20;
+    /* Add more styling according to your needs */
   }
-  
-  .border-top{
-    border: 3px solid green;
-  }
-  
