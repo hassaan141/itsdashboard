@@ -1,3 +1,6 @@
+*{
+  color: white;
+}
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -14,10 +17,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
+    background-color: #21252b;
+    padding: 10px;
     z-index: 11;
-    height: 50%;
+    height: fit-content;
+    font-size: smaller;
+    width: 40%;
     border-radius: 8px;
     /* Rest of your modal styles */
   }
@@ -26,4 +31,23 @@
     /* Your modal content styles */
   }
 
+  .btn{
+    padding-top: 1rem;
+    border-radius: 1rem;
+    margin-top: 1rem;
+  }
   
+  .CameraCheckbox{
+    display: flex;
+    flex-direction:column;
+  }
+
+  .MonitorCheckbox{
+    display: flex;
+    flex-direction:column;
+  }
+
+  .label{
+    display: flex;
+  align-items: center;
+  }
