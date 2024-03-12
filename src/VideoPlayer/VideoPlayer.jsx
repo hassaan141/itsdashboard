@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './App.css'; 
-import EventsMonitoring from './Events/EventsMonitoring';
-import Test from "./test.json"
+import './video.styles.css'; 
+import EventsMonitoring from '../Events/EventsMonitoring';
+import Test from "../test.json"
 
 
 function VideoPlayer() {
@@ -26,15 +26,7 @@ function VideoPlayer() {
     width: `${Test.data.bounding_box.bottom_right.x - Test.data.bounding_box.top_left.x}px`,
     height: `${Test.data.bounding_box.bottom_right.y - Test.data.bounding_box.top_left.y}px`
   };
-
-  const [boldRows, setBoldRows] = useState({});
-  const toggleBoldRow = (rowIndex) => {
-    setBoldRows((currentBoldRows) => ({
-      ...currentBoldRows,
-      [rowIndex]: !currentBoldRows[rowIndex],
-    }));
-  };
-
+  
   const eventsData = [
     { icon: '🚗', description: 'Camera 3 Detected Congestion', time: '15:20' },
     { icon: '🚨', description: 'Camera 6 Detected an Accident', time: '12:33' },

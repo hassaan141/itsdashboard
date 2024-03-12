@@ -1,0 +1,331 @@
+*{
+    background-color: #21252b;
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
+  
+  body {
+    background-color: #f8f8f8;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .gTNrZz {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #282c34;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: white;
+    font-size: 9px;
+    margin-top: 7%;
+    position:fixed;
+    top:0;
+    right:0;
+    border: 1px solid red; 
+    height: fit-content;
+    width: fit-content;
+  }
+  
+  .Patrols {
+    display: flex;
+    width: 100%;
+    /* max-width: 460px;  */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    /* border: 1px solid #d80799; */
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  tr td {
+    padding-top: 7px;    /* Add space to the top of each cell */
+    padding-bottom: 7px; /* Add space to the bottom of each cell */
+  }
+  
+  th{
+    font-size: 12px;
+  }
+  
+  .Patrols table {
+    border-collapse: separate;
+    border-spacing: 30px 0; /* Adjust the '10px' as needed for your design */
+    
+  }
+  
+  .Headerlist {
+    font-size: 10px;
+  }
+  
+  .xButton:focus{
+    outline: none;
+  }
+  
+  .xButton{
+      background: none;       /* No background */
+      color: inherit;         /* Inherits the color from its parent */
+      border: none;           /* No border */
+      padding: 0;             /* No padding */
+      margin-left: 4px;              /* No margin */
+      font: inherit;          /* Inherits font from its parent */
+      cursor: pointer;        /* Cursor appears as a pointer to indicate it's clickable */
+      outline: inherit;       /* Default outline behavior */
+      line-height: normal;    /* Normal line height */
+      overflow: visible;      /* No overflow */
+      text-transform: none;   /* No text capitalization */
+      appearance: none;       /* Removes platform-specific styling */
+      box-shadow: none;       /* No box shadow */
+  }
+  
+  .box {
+    background-color: rgb(56, 54, 54);
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    padding: 20px;
+    margin: auto;
+    position: fixed;
+    top: 55%;
+    left: 42%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 60%; /* Adjusted size for the box */
+    height: 75%; /* Adjusted size for the box */
+    grid-gap: 0; /* No gap between grid items */
+    border: 1px solid green;
+    
+  }
+  
+  .box.full {
+    grid-template-columns: 1fr; /* Full width for 1 video */
+  }
+  
+  .box.half {
+    grid-template-columns: 1fr 1fr; /* Two columns for 2 videos */
+  }
+  
+  .box.quarter {
+    grid-template-columns: repeat(2, 1fr); /* Two columns, but will adjust for 3 or 4 videos */
+    grid-template-rows: repeat(2, 1fr); /* Two rows for 3 or 4 videos */
+  }
+  
+  /* vid1 */
+  
+  .video1 {
+    position:relative;
+    width: 100%; /* or a specific width */
+    /* Padding-top for 16:9 Aspect Ratio. It's 9/16 = 56.25% */
+    padding-top: 50.25%;
+    padding-bottom: 10;
+    overflow: hidden;
+    
+  }
+  
+  .video1 video {
+  
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    height: 90%;
+    object-fit: cover; /* Cover the container without losing aspect ratio */
+  }
+  
+  .video2 {
+    position: relative;
+    width: 100%; /* or a specific width */
+    /* Padding-top for 16:9 Aspect Ratio. It's 9/16 = 56.25% */
+    padding-top: 56.25%;
+    overflow: hidden;
+  }
+  
+  .video2 video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    height: 90%;
+    object-fit: cover; /* Cover the container without losing aspect ratio */
+  }
+  
+  .video3 {
+    position: relative;
+    width: 100%; /* or a specific width */
+    /* Padding-top for 16:9 Aspect Ratio. It's 9/16 = 56.25% */
+    padding-top: 56.25%;
+    overflow: hidden;
+  }
+  
+  .video3 video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    height: 90%;
+    object-fit: cover; /* Cover the container without losing aspect ratio */
+  }
+  
+  .video4 {
+    position: relative;
+    width: 100%; 
+    padding-top: 56.25%;
+    overflow: hidden;
+  }
+  
+  .video4 video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    height: 90%;
+    object-fit: cover; /* Cover the container without losing aspect ratio */
+  }
+  
+  /* vid1 */
+  
+  @media (min-width: 400px) {
+    .box {
+      grid-template-columns: repeat(auto-fill, minmax(48%, 1fr));
+    }
+  }
+  .noCamera {
+    background-color: grey;
+    border-radius: 10px;
+    /* margin: 10rem; 
+    margin-left: 18rem;  */
+    height: 15%;
+    width: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+  }
+  .videotext {
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    grid-gap: 0;
+    background-color: grey;
+  }
+  
+  
+  .box video {
+    width: 92%;
+    height: 92%;
+    object-fit: contain;
+  }
+  
+  /* Additional styling for the 'X' button */
+  .box button {
+    background-color: #ccc;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .App-link {
+    color: #61dafb;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .noSpacing {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Apply the 'noSpacing' class to the div elements */
+  .div1, .div2, .div3, .div4 {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .titlemain{
+    color: white;
+    text-align: center;
+    padding-top: 3rem;
+    font-size: 40px;
+  }
+  
+  .buttoncontainer{
+    margin-top: 20%;
+    background-color: transparent;
+    
+  }
+  
+  .button{
+    padding: 7px 14px;
+    font-size: 10px;
+    border-radius: 4px;
+    margin: 0 6px;
+    font-weight: bold;
+  }
+  
+  .addbutton{
+    background-color: #04AA6D;
+    border: none;
+  }
+  
+  .editbutton{
+    background-color: #04AA6D;
+    border: none;
+  }
+  
+  .removebutton{
+    background-color: #f44336;
+    border: none;
+  }
+  
+  .eventMonitoring{
+    position: fixed; 
+    right: 0;       
+    bottom: 0;   
+  }
+  .eventMonitoringHeader{
+    color: white;
+  }
+  
+  .jsondiv{
+    padding: "100rem";
+    border: 1px solid red;
+  }
+  
+  .border-vp{
+    border: 3px solid green;
+  }
+  
+  .border-nav{
+    border: 3px solid orange;
+  
+  }
+  
+  .border-top{
+    border: 3px solid green;
+  }
+  
