@@ -139,6 +139,10 @@
     overflow: hidden;
     
   }
+
+  .overlay{
+    z-index: 999;
+  }
   
   .video1 video {
   
@@ -327,25 +331,3 @@
     border: 1px solid red;
   }
   
-
-  .backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7); /* semi-transparent */
-    backdrop-filter: blur(5px); /* blurs the background */
-    z-index: 10;
-  }
-  
-  .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    z-index: 20;
-    /* Add more styling according to your needs */
-  }

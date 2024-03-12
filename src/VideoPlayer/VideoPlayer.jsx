@@ -2,24 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './video.styles.css'; 
 import EventsMonitoring from '../Events/EventsMonitoring';
 import Test from "../test.json"
-
-// function Modal({ isOpen, onClose }) {
-//   if (!isOpen) return null;
-
-//   return (
-//     <>
-//       <div className="backdrop" onClick={onClose} />
-//       <div className="modal">
-//         <h1> Add Your New Camera</h1>
-//         <p> Please select the type of camera and the specific traffic condiitons you would like
-//         to monitor in the camera feed</p>
-//         <h2> Camera Name</h2>
-//         <button onClick={onClose}>Cancel</button>
-//         <button>Add Camera</button>
-//       </div>
-//     </>
-//   );
-// }
+import AddCameraModal from "../Camera/CameraModal"
 
 function VideoPlayer() {
   const [showVideo1, setShowVideo1] = useState(false);
@@ -27,6 +10,7 @@ function VideoPlayer() {
   const [showVideo3, setShowVideo3] = useState(false);
   const [showVideo4, setShowVideo4] = useState(false);
   const [showText, setText] = useState(true);
+  const [showAddCamera, setShowAddCamera] = useState(false);
 
 
   const [showDelete, setShowDelete] = useState(false); // New state for showing delete buttons
@@ -43,10 +27,10 @@ function VideoPlayer() {
   const deleteRow = (id) => {
     setRows(rows.filter(row => row.id !== id));
   };
-  
 
-
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const toggleAddCamera = () => {
+    setShowAddCamera(!showAddCamera);
+  }
  
   const activeVideos = [showVideo1, showVideo2, showVideo3, showVideo4].filter(Boolean).length;
   const boxClass = `box ${activeVideos === 1 ? "full" : activeVideos === 2 ? "half" : "quarter"}`;
@@ -55,7 +39,6 @@ function VideoPlayer() {
     backgroundColor:'transparent',
     position: 'relative',
     border: '2px solid red',
-    // Directly use the values without template literals
     top: `${Test.data.bounding_box.top_left.y}px`,
     left: `${Test.data.bounding_box.top_left.x}px`,
     width: `${Test.data.bounding_box.bottom_right.x - Test.data.bounding_box.top_left.x}px`,
@@ -97,17 +80,17 @@ function VideoPlayer() {
                   <td>{row.camera}
                   <button className='xButton' onClick={(e) => {
                         e.preventDefault(); // Prevent the default action
-                        if(row.id ==1) setShowVideo1(false);
-                        if(row.id ==2) setShowVideo2(false);
-                        if(row.id ==3) setShowVideo3(false);
-                        if(row.id ==4) setShowVideo4(false);
+                        if(row.id ===1) setShowVideo1(false);
+                        if(row.id ===2) setShowVideo2(false);
+                        if(row.id ===3) setShowVideo3(false);
+                        if(row.id ===4) setShowVideo4(false);
                     }}> X </button>
                     <button className='yButton' onClick={(e) => {
                         e.preventDefault(); // Prevent the default action
-                        if(row.id ==1) setShowVideo1(true);
-                        if(row.id ==2) setShowVideo2(true);
-                        if(row.id ==3) setShowVideo3(true);
-                        if(row.id ==4) setShowVideo4(true);
+                        if(row.id ===1) setShowVideo1(true);
+                        if(row.id ===2) setShowVideo2(true);
+                        if(row.id ===3) setShowVideo3(true);
+                        if(row.id ===4) setShowVideo4(true);
                         setText(false);
                     }}> ✓ </button></td>
                   <td>{row.monitor}</td>
@@ -119,13 +102,12 @@ function VideoPlayer() {
                   )}
                 </tr>
               ))}
-            </tbody>
-    </table>
-</div>
+         </tbody>
+      </table>
+          </div>
 
           <div className='buttoncontainer'>
-            <button className='addbutton button'>Add Camera</button>
-            <button className='editbutton button'>Edit</button>
+            <button onClick={toggleAddCamera} className='addbutton button'>Add Camera</button>
             <button onClick={toggleShowDelete} className='removebutton button'>Remove Camera</button>
           </div>
       </div>
@@ -137,7 +119,13 @@ function VideoPlayer() {
           <h6 className='videotext'> Note: For best usability, active camera displays have been limited to a maximum of four.</h6>
         </div>        
         )}
-
+        {showAddCamera && 
+        <div className='overlay'>
+          <div className='addCameraPopup'>
+            <AddCameraModal onClose={toggleAddCamera} />
+          </div>
+        </div>
+      }
 
         {showVideo1 && (
           <div className='video1 div1 noSpacing'>
@@ -148,7 +136,6 @@ function VideoPlayer() {
           </div>
         )}
 
-        {/* Repeat for other videos */}
         {showVideo2 && (
           <div className='video2 div2 noSpacing'>
             <video width="100%" height="100%" autoPlay>
@@ -186,24 +173,3 @@ function VideoPlayer() {
 }
 
 export default VideoPlayer;
-
-
-{/* <td>
-                    <a>Camera1</a>
-                    <button className='xButton' onClick={(e) => {
-                        e.preventDefault(); // Prevent the default action
-                        setShowVideo1(false);
-                    }}> X </button>
-                    <button className='yButton' onClick={(e) => {
-                        e.preventDefault(); // Prevent the default action
-                        setShowVideo1(true);
-                        setText(false);
-                    }}> ✓ </button>
-                </td>
-                <td>TC, AC, NM</td>
-                <td>Dixie & Dundas</td>
-                {showDelete && (
-                    <td>
-                      <button onClick={() => deleteRow(id)}> - </button>
-                    </td>
-                  )} */}
