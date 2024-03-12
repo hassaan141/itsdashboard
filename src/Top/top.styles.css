@@ -6,10 +6,10 @@
   align-items: center; /* Vertically centers the children */
   border: 1px solid white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  margin-left: 1rem;
+  margin-left: 9rem;
   margin-top:1%;
   height: 4rem;
-  width: 82rem;
+  width: 75rem;
   margin-right:1rem;
   border-radius: 1rem;
 }

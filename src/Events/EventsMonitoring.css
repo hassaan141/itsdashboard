@@ -3,12 +3,12 @@
     color: #fff;
     border-radius: 8px;
     max-width: 300px;
-    /* border: 1px solid red; */
+    border: 1px solid red;
     margin-right: 30px;
     position: fixed;
     right: 10px;
     bottom: 10px;
-    padding: 10px; /* Padding inside the div, which adds to the content size */
+    padding: 0.5rem; /* Padding inside the div, which adds to the content size */
     font-size: 12px;
   }
   

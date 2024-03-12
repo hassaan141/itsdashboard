@@ -8,9 +8,17 @@ import Nav from './Nav/nav'
 function App() {
   return (
     <div className="App">
-      <Top/>
-      <Nav/>
-      <VideoPlayer />
+    <div className='border-top'>
+    <Top/>
+    </div>
+    <div className='border-nav'>
+    <Nav/>
+    </div>
+    <div className='border-vp'>
+    <VideoPlayer />
+    </div>
+      
+      
     </div>
   );
 }

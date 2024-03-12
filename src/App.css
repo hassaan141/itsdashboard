@@ -1,5 +1,7 @@
 *{
   background-color: #21252b;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 body {
@@ -13,16 +15,16 @@ body {
   flex-direction: column;
   align-items: center;
   background-color: #282c34;
-  padding: 20px;
+  padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: white;
   font-size: 9px;
   margin-top: 7%;
-  position:absolute;
+  position:fixed;
   top:0;
   right:0;
-  /* border: 1px solid red; */
+  border: 1px solid red; 
   height: fit-content;
   width: fit-content;
 }
@@ -309,53 +311,20 @@ th{
   color: white;
 }
 
-
-
-
-/*
-.Headerlist li {
-  padding: 5px 10px;
+.jsondiv{
+  padding: "100rem";
+  border: 1px solid red;
 }
 
-.ScrollableList {
-  overflow-y: auto;
-  max-height: 200px;
-  background: #282c34;
-  overflow-y: auto;
-  max-height: 200px;
-  border: 1px solid #ccc;
+.border-vp{
+  border: 3px solid green;
 }
 
-.ScrollableList ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 10px;
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 10px;
-  justify-content: space-between
+.border-nav{
+  border: 3px solid orange;
+
 }
 
-.ScrollableList li {
-  padding: 5px 10px;
-  display: flex;
-  align-items: center;
-  color: #ccc;
+.border-top{
+  border: 3px solid green;
 }
-
-.ScrollableList a {
-  color: #61dafb;
-  text-decoration: none;
-  margin-right: 10px;
-}
-
-.ScrollableList button {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-} */

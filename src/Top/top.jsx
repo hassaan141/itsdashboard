@@ -1,7 +1,9 @@
 import React from 'react'
 import './top.styles.css'
 
+
 const Top =()=> {
+  const date = new Date();
   return (
     <nav className='top'>
       
@@ -10,9 +12,7 @@ const Top =()=> {
       </h1>
 
       <div className='date'>
-        <h6>
-          Friday March 8th, 2024
-        </h6>
+       <h6>{date.toDateString()}</h6>
       </div>
     </nav>
   )

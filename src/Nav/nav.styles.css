@@ -20,9 +20,10 @@
   padding: var(--nav-padding) 0;
   width: var(--nav-width);
   height: 90vh;
-  margin-top: 1rem;
+  margin-top: 0rem;
   margin-left: 1rem;
   border-radius: 1rem;
+  margin-right: 20rem;
   margin-bottom: 10rem;
   color: var(--icon-color);
   
@@ -79,7 +80,7 @@
 .Logout {
   background-color: var(--background-nav);
   background-color: var(--background-nav);
-  padding-top: 23rem;
+  padding-top: 7rem;
   margin-top: var(--logout-margin-top);
   width: var(--logout-icon-size);
   height: var(--logout-icon-size);
@@ -87,7 +88,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
 .Logout img {

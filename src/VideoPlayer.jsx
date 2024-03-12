@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css'; 
 import EventsMonitoring from './Events/EventsMonitoring';
+import Test from "./test.json"
 
 
 function VideoPlayer() {
@@ -9,10 +10,23 @@ function VideoPlayer() {
   const [showVideo3, setShowVideo3] = useState(false);
   const [showVideo4, setShowVideo4] = useState(false);
   const [showText, setText] = useState(true);
+ 
   const activeVideos = [showVideo1, showVideo2, showVideo3, showVideo4].filter(Boolean).length;
   const boxClass = `box ${activeVideos === 1 ? "full" : activeVideos === 2 ? "half" : "quarter"}`;
 
-  
+  const boundingBoxStyle = {
+    backgroundColor:'transparent',
+
+    position: 'relative',
+
+    border: '2px solid red',
+    // Directly use the values without template literals
+    top: `${Test.data.bounding_box.top_left.y}px`,
+    left: `${Test.data.bounding_box.top_left.x}px`,
+    width: `${Test.data.bounding_box.bottom_right.x - Test.data.bounding_box.top_left.x}px`,
+    height: `${Test.data.bounding_box.bottom_right.y - Test.data.bounding_box.top_left.y}px`
+  };
+
   const [boldRows, setBoldRows] = useState({});
   const toggleBoldRow = (rowIndex) => {
     setBoldRows((currentBoldRows) => ({
@@ -37,6 +51,7 @@ function VideoPlayer() {
 
   return (
     <div>
+    
       <div className="gTNrZz">
        <h2>Camera Monitoring List</h2>
        <div className='Patrols'>
@@ -159,6 +174,7 @@ function VideoPlayer() {
               <source src={`${process.env.PUBLIC_URL}/vid3.mp4`} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
+            <div style={boundingBoxStyle}></div>
           </div>
         )}
 
