@@ -15,6 +15,9 @@ function VideoPlayer() {
   const [showAddCamera, setShowAddCamera] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
   const [showDelete, setShowDelete] = useState(false); // New state for showing delete buttons
+  const [activeVideoSize, setActiveVideoSize] = useState({ width: 0, height: 0 });
+  const [containerCenter, setContainerCenter] = useState([0, 0]);
+
 
   // Managing rows in state
   const [rows, setRows] = useState([
@@ -45,14 +48,14 @@ function VideoPlayer() {
 
   const dotStyle = {
     position: 'absolute',
-    top: `${x}px`, 
-    left: `${y}px`,
-    width: '20px', // Fixed size of the dot
-    height: '20px', // Fixed size of the dot
+    top: `${containerCenter[1]}px`,  // Y value is at index 1
+    left: `${containerCenter[0]}px`, // X value is at index 0
+    width: '20px',
+    height: '20px',
     backgroundColor: 'red',
-    borderRadius: '50%', // Makes the dot circular
-    transform: 'translate(-50%, -50%)' // Centers the dot on the coordinates
-  };
+    borderRadius: '50%',
+    transform: 'translate(-50%, -50%)'
+};
 
   //export const useData = () => useContext(DataContext);
 
@@ -63,11 +66,6 @@ function VideoPlayer() {
     React.createRef(),
   ]);
   
-  const eventsData = [
-    { icon: '🚗', description: 'Camera 3 Detected Congestion', time: '15:20' },
-    { icon: '🚨', description: 'Camera 6 Detected an Accident', time: '12:33' },
-    { icon: '🔰', description: 'Camera 1 Detected a Near Miss', time: '9:50' },
-  ];
 
   useEffect(() => {
     if (!showVideo1 && !showVideo2 && !showVideo3 && !showVideo4) {
@@ -82,8 +80,47 @@ function VideoPlayer() {
     if (videoElement) {
       videoElement.play();
       setActiveVideo(videoElement); // Set the ref of the playing video as active
+      
+      // Immediately calculate and set the video size
+      if (videoElement.parentNode) {
+        const width = videoElement.parentNode.clientWidth;
+        const height = videoElement.parentNode.clientHeight;
+        setActiveVideoSize({ width, height });
+      }
     }
   };
+
+  
+
+  const logVideoSize = (index) => {
+    const videoElement = videoRefs.current[index].current;
+    if (videoElement && videoElement.parentNode) {
+      const width = videoElement.parentNode.clientWidth;
+      const height = videoElement.parentNode.clientHeight;
+      console.log(`Video ${index + 1} size:`, `${width}px by ${height}px`);
+      setActiveVideoSize({ width, height }); // Update state with container size
+    }
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      // Check if there's an active video and it has a parent node
+      if (activeVideo && activeVideo.parentNode) {
+        const width = activeVideo.parentNode.clientWidth;
+        const height = activeVideo.parentNode.clientHeight;
+        setActiveVideoSize({ width, height }); // Update the state with new size
+      }
+    };
+
+    // Call once to set initial size
+    handleResize();
+
+    // Add event listener for future resizes
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup function to remove event listener
+    return () => window.removeEventListener('resize', handleResize);
+  }, [activeVideo]); // Dependency array, effect reruns if activeVideo changes
 
   return (
     <div>
@@ -156,8 +193,8 @@ function VideoPlayer() {
 
         {/* Existing JSX */}
         {showVideo1 && (
-        <div className='video1 div1 noSpacing' style={{position: 'relative', width: '640px', height:'360px'}} >
-          <video ref={videoRefs.current[0]} width="100%" height="100%" autoPlay muted >
+        <div className='video1'>
+          <video ref={videoRefs.current[0]}  autoPlay muted onLoadedMetadata={() => logVideoSize(0)}>
             <source src={`${process.env.PUBLIC_URL}/vid1.mp4`} type="video/mp4" />
             Your browser does not support the video tag.
           </video> 
@@ -166,36 +203,42 @@ function VideoPlayer() {
         )}
 
         {showVideo2 && (
-        <div className='video2 div2 noSpacing'>
-          <video ref={videoRefs.current[1]} width="100%" height="100%" autoPlay muted>
+        <div className='video2'>
+          <video ref={videoRefs.current[1]} autoPlay muted onLoadedMetadata={() => logVideoSize(1)}>
             <source src={`${process.env.PUBLIC_URL}/vid2.mp4`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+          <div style={dotStyle}></div>
         </div>
         )}
 
       {showVideo3 && (
-        <div className='video3 div3 noSpacing'>
-          <video ref={videoRefs.current[2]} width="100%" height="100%" autoPlay muted>
+        <div className='video3'>
+          <video ref={videoRefs.current[2]} autoPlay muted onLoadedMetadata={() => logVideoSize(2)}>
             <source src={`${process.env.PUBLIC_URL}/vid3.mp4`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+          <div style={dotStyle}></div>
         </div>
         )}
 
         {showVideo4 && (
-        <div className='video4 div4 noSpacing'>
-          <video ref={videoRefs.current[3]} width="100%" height="100%" autoPlay muted>
+        <div className='video4'>
+          <video ref={videoRefs.current[3]} autoPlay muted onLoadedMetadata={() => logVideoSize(3)}>
             <source src={`${process.env.PUBLIC_URL}/vid4.mp4`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+          <div style={dotStyle}></div>
         </div>
-        )}      </div>
+        )}      
+        </div>
 
       <div className='eventMonitoring'>
        <EventsMonitoring events={eventsData} />
       </div>
-      {activeVideo && <VideoFrameSender videoElement={activeVideo} />}
+      {activeVideo && <VideoFrameSender videoElement={activeVideo} containerSize={activeVideoSize} onContainerCenterReceived={(centerArray) => setContainerCenter(centerArray)} />
+
+}
   </div>
   ) 
 }

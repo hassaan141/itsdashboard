@@ -13,6 +13,9 @@
 
 .NavWrapper {
   border: 1px solid green;
+  position: fixed; /* Fix the position relative to the viewport */
+  top: 1rem; /* Align top edge with the top of the viewport */
+  left: 0; /* Align left edge with the left of the viewport */
   background-color: var(--background-nav);
   display: flex;
   flex-direction: column;
@@ -72,16 +75,11 @@
   color: var(--icon-color);
 }
 
-/* Removed hover background color and padding to maintain icon size */
-.NavItem:hover, .NavItem.active {
-  /* You can keep this selector if you want to add other styles on hover/active */
-}
-
 .Logout {
   background-color: var(--background-nav);
   background-color: var(--background-nav);
   padding-top: 7rem;
-  margin-top: var(--logout-margin-top);
+  margin-top: 7rem;
   width: var(--logout-icon-size);
   height: var(--logout-icon-size);
   border-radius: 50%;

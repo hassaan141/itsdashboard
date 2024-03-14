@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { useData } from './dataContext'; // Adjust the import path as necessary
+import { useData } from './dataContext';
 
-function VideoFrameSender({ videoElement }) {
-  const { setCenterData } = useData(); // Correctly extract setCenterData from useData
+function VideoFrameSender({ videoElement, containerSize, onContainerCenterReceived }) {
+  const { setCenterData } = useData();
 
-  const sendFrame = () => {
-    if (!videoElement || videoElement.readyState !== 4) {
-      console.log("Video is not ready for frame capture.");
-      return;
-    }
+  const sendFrameAndSize = () => {
+    // if (!videoElement || videoElement.readyState !== 4) {
+    //   console.log("Video is not ready for frame capture.");
+    //   return;
+    // }
 
     const canvas = document.createElement('canvas');
     canvas.width = videoElement.videoWidth;
@@ -20,21 +20,24 @@ function VideoFrameSender({ videoElement }) {
       const formData = new FormData();
       formData.append('frame', blob, 'frame.jpg');
       formData.append('video_id', 'unique_video_id');
+      formData.append('container_size', JSON.stringify(containerSize));
+
+      console.log("Sending the following data to the backend:");
+      for (let key of formData.keys()) {
+        console.log(`${key}:`, formData.get(key));
+      }
 
       fetch('http://localhost:5000/process', {
         method: 'POST',
         body: formData,
       })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
+      .then(response => response.json())
       .then(data => {
-        // Assuming 'data' is the object that contains the 'center' array
-        if (data.center && Array.isArray(data.center)) {
-          setCenterData(data.center); // Update the context state with the new center data
+        if (data.container_center) {
+          onContainerCenterReceived(data.container_center);
+          if (data.image_center && Array.isArray(data.image_center)) {
+            setCenterData(data.image_center);
+          }
         } else {
           console.error('Unexpected response format:', data);
         }
@@ -46,12 +49,11 @@ function VideoFrameSender({ videoElement }) {
   };
 
   useEffect(() => {
-    const intervalId = setInterval(sendFrame, 1000); // Adjust as needed
+    const intervalId = setInterval(sendFrameAndSize, 1000);
     return () => clearInterval(intervalId);
-  }, [videoElement, setCenterData]); // Include setCenterData as a dependency
+  }, [videoElement, containerSize, setCenterData, onContainerCenterReceived]);
 
   return null;
 }
 
 export default VideoFrameSender;
-
