@@ -234,7 +234,7 @@ function VideoPlayer() {
         </div>
 
       <div className='eventMonitoring'>
-       <EventsMonitoring events={eventsData} />
+       <EventsMonitoring />
       </div>
       {activeVideo && <VideoFrameSender videoElement={activeVideo} containerSize={activeVideoSize} onContainerCenterReceived={(centerArray) => setContainerCenter(centerArray)} />
 

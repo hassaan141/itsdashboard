@@ -1,68 +1,70 @@
 .events-monitoring {
-    background-color: #2d2f34;
-    color: #fff;
-    border-radius: 8px;
-    max-width: 300px;
-    border: 1px solid red;
-    margin-right: 30px;
-    position: fixed;
-    right: 10px;
-    bottom: 10px;
-    padding: 0.5rem; /* Padding inside the div, which adds to the content size */
-    font-size: 12px;
-  }
-  
-  .events-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .new-events-count {
-    background-color: #ff0000; /* Replace with the actual color used for notification */
-    color: #fff;
-    padding: 2px 8px;
-    border-radius: 15px;
-    font-size: 0.8em;
-  }
-  
-  .event-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #21252b;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border-left: 5px solid transparent; /* Replace or adjust based on actual style */
-  }
-  
-  .event-icon {
-    /* Insert your icon styling here */
-  }
-  
-  .event-description {
-    flex-grow: 1;
-    margin: 0 10px;
-  }
-  
-  .event-time {
-    /* Style for the time */
-  }
-  
-  /* Custom styling for icons based on event type */
-  .event-item.congestion .event-icon {
-    border-left-color: red;
-  }
-  
-  .event-item.accident .event-icon {
-    border-left-color: orange;
-  }
-  
-  .event-item.near-miss .event-icon {
-    border-left-color: green;
-  }
-  
-  /* Add additional CSS as needed */
-  
+  background-color: #2d2f34;
+  color: #fff;
+  border-radius: 8px;
+  width: 400px; /* Adjust based on your content */
+  max-height: 600px;
+  border: 1px solid red;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  padding: 10px;
+  font-size: 12px;
+  overflow-y: auto;
+}
+
+.events-header {
+  display: flex;
+  justify-content: space-between; /* Positions the title and count on opposite ends */
+  align-items: center; /* Vertically centers the items */
+  margin-bottom: 10px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.new-events-count {
+  background-color: #ff0000;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 15px;
+  font-size: 0.8em;
+  top: 0;
+  right:0;
+}
+
+/* Updated styles for the table layout */
+.events-table {
+  display: table;
+  width: 100%; /* Make the table use the full width of its container */
+}
+
+.table-row {
+  display: table-row;
+}
+
+.table-row.header {
+  font-weight: bold;
+  background-color: #41454b; /* Slightly different background for the header */
+}
+
+.table-cell {
+  display: table-cell;
+  padding: 8px; /* Padding inside each cell */
+  border-bottom: 1px solid #fff; /* Visual separation of rows */
+  text-align: left; /* Align text to the left in each cell */
+}
+
+/* Adjust the first column width if needed */
+.table-row > .table-cell:first-child {
+  width: 50px; /* Adjust this width based on your content or remove if not needed */
+}
+
+/* Additional styling for content alignment and visibility */
+.event-description, .event-time {
+  display: flex;
+  align-items: center;
+}
+
+.event-time {
+  justify-content: end;
+}
