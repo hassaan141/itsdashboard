@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import VideoPlayer from './VideoPlayer/VideoPlayer.jsx'; // Adjust the path as necessary
 import './App.css';   
-import Top from './Top/top'
-import Nav from './Nav/nav'
+import Top from './Top/top';
+import Nav from './Nav/nav';
+import { DataProvider } from './sendBackEnd/dataContext';
 
 function App() {
   return (
@@ -15,7 +16,9 @@ function App() {
     <Nav/>
     </div>
     <div className='border-vp'>
+    <DataProvider>
     <VideoPlayer />
+    </DataProvider>
     </div>
       
       

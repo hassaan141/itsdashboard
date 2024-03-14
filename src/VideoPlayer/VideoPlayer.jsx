@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './video.styles.css'; 
 import EventsMonitoring from '../Events/EventsMonitoring';
 import Test from "../test.json"
 import AddCameraModal from "../Camera/CameraModal"
+import VideoFrameSender from "../sendBackEnd/sendBack"; 
+import { useData } from '../sendBackEnd/dataContext';
 
 function VideoPlayer() {
   const [showVideo1, setShowVideo1] = useState(false);
@@ -11,9 +13,9 @@ function VideoPlayer() {
   const [showVideo4, setShowVideo4] = useState(false);
   const [showText, setText] = useState(true);
   const [showAddCamera, setShowAddCamera] = useState(false);
-
-
+  const [activeVideo, setActiveVideo] = useState(null);
   const [showDelete, setShowDelete] = useState(false); // New state for showing delete buttons
+
   // Managing rows in state
   const [rows, setRows] = useState([
     { id: 1, camera: "Camera1", monitor: "TC, AC, NM", intersection: "Dixie & Dundas", showVideo: showVideo1, setShowVideo: setShowVideo1 },
@@ -35,15 +37,31 @@ function VideoPlayer() {
   const activeVideos = [showVideo1, showVideo2, showVideo3, showVideo4].filter(Boolean).length;
   const boxClass = `box ${activeVideos === 1 ? "full" : activeVideos === 2 ? "half" : "quarter"}`;
 
-  const boundingBoxStyle = {
-    backgroundColor:'transparent',
-    position: 'relative',
-    border: '2px solid red',
-    top: `${Test.data.bounding_box.top_left.y}px`,
-    left: `${Test.data.bounding_box.top_left.x}px`,
-    width: `${Test.data.bounding_box.bottom_right.x - Test.data.bounding_box.top_left.x}px`,
-    height: `${Test.data.bounding_box.bottom_right.y - Test.data.bounding_box.top_left.y}px`
+  let x,y = 0;
+  useEffect(() => {
+    x = useData[0]; // This will log the center coordinates array
+    y = useData[1]; // This will log the center coordinates array
+  }, [useData]);
+
+  const dotStyle = {
+    position: 'absolute',
+    top: `${x}px`, 
+    left: `${y}px`,
+    width: '20px', // Fixed size of the dot
+    height: '20px', // Fixed size of the dot
+    backgroundColor: 'red',
+    borderRadius: '50%', // Makes the dot circular
+    transform: 'translate(-50%, -50%)' // Centers the dot on the coordinates
   };
+
+  //export const useData = () => useContext(DataContext);
+
+  const videoRefs = useRef([
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+  ]);
   
   const eventsData = [
     { icon: '🚗', description: 'Camera 3 Detected Congestion', time: '15:20' },
@@ -58,6 +76,14 @@ function VideoPlayer() {
       setText(false);
     }
   }, [showVideo1, showVideo2, showVideo3, showVideo4]);
+
+  const playVideo = (videoIndex) => {
+    const videoElement = videoRefs.current[videoIndex].current;
+    if (videoElement) {
+      videoElement.play();
+      setActiveVideo(videoElement); // Set the ref of the playing video as active
+    }
+  };
 
   return (
     <div>
@@ -87,6 +113,7 @@ function VideoPlayer() {
                     }}> X </button>
                     <button className='yButton' onClick={(e) => {
                         e.preventDefault(); // Prevent the default action
+                        playVideo(index);
                         if(row.id ===1) setShowVideo1(true);
                         if(row.id ===2) setShowVideo2(true);
                         if(row.id ===3) setShowVideo3(true);
@@ -127,47 +154,48 @@ function VideoPlayer() {
         </div>
       }
 
+        {/* Existing JSX */}
         {showVideo1 && (
-          <div className='video1 div1 noSpacing'>
-            <video width="100%" height="100%" autoPlay>
-              <source src={`${process.env.PUBLIC_URL}/vid1.mp4`} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
+        <div className='video1 div1 noSpacing' style={{position: 'relative', width: '640px', height:'360px'}} >
+          <video ref={videoRefs.current[0]} width="100%" height="100%" autoPlay muted >
+            <source src={`${process.env.PUBLIC_URL}/vid1.mp4`} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video> 
+          <div style={dotStyle}></div>
+        </div>
         )}
 
         {showVideo2 && (
-          <div className='video2 div2 noSpacing'>
-            <video width="100%" height="100%" autoPlay>
-              <source src={`${process.env.PUBLIC_URL}/vid2.mp4`} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
+        <div className='video2 div2 noSpacing'>
+          <video ref={videoRefs.current[1]} width="100%" height="100%" autoPlay muted>
+            <source src={`${process.env.PUBLIC_URL}/vid2.mp4`} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
         )}
 
-        {showVideo3 && (
-          <div className='video3 div3 noSpacing'>
-            <video width="100%" height="100%" autoPlay>
-              <source src={`${process.env.PUBLIC_URL}/vid3.mp4`} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <div style={boundingBoxStyle}></div>
-          </div>
+      {showVideo3 && (
+        <div className='video3 div3 noSpacing'>
+          <video ref={videoRefs.current[2]} width="100%" height="100%" autoPlay muted>
+            <source src={`${process.env.PUBLIC_URL}/vid3.mp4`} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
         )}
 
         {showVideo4 && (
-          <div className='video4 div4 noSpacing'>
-            <video width="100%" height="100%" autoPlay>
-              <source src={`${process.env.PUBLIC_URL}/vid4.mp4`} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        )}
-      </div>
+        <div className='video4 div4 noSpacing'>
+          <video ref={videoRefs.current[3]} width="100%" height="100%" autoPlay muted>
+            <source src={`${process.env.PUBLIC_URL}/vid4.mp4`} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        )}      </div>
 
       <div className='eventMonitoring'>
        <EventsMonitoring events={eventsData} />
       </div>
+      {activeVideo && <VideoFrameSender videoElement={activeVideo} />}
   </div>
   ) 
 }

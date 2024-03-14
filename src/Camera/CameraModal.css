@@ -11,7 +11,7 @@
     backdrop-filter: blur(4px);
     z-index: 10;
   }
-  
+
   .modal-container {
     position: fixed;
     top: 50%;
@@ -24,30 +24,18 @@
     font-size: smaller;
     width: 40%;
     border-radius: 8px;
-    /* Rest of your modal styles */
   }
-  
-  .modal-content {
-    /* Your modal content styles */
-  }
+
+  /* .modal-content {
+  } */
 
   .btn{
     padding-top: 1rem;
     border-radius: 1rem;
     margin-top: 1rem;
   }
-  
-  .CameraCheckbox{
-    display: flex;
-    flex-direction:column;
-  }
 
   .MonitorCheckbox{
     display: flex;
     flex-direction:column;
-  }
-
-  .label{
-    display: flex;
-  align-items: center;
   }
