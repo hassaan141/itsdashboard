@@ -2,7 +2,7 @@
   background-color: #2d2f34;
   color: #fff;
   border-radius: 8px;
-  width: 400px; /* Adjust based on your content */
+  width: 450px; /* Adjust based on your content */
   max-height: 600px;
   border: 1px solid red;
   position: fixed;
@@ -11,6 +11,8 @@
   padding: 10px;
   font-size: 12px;
   overflow-y: auto;
+  margin-bottom: 4rem;
+  margin-right: 2rem;
 }
 
 .events-header {

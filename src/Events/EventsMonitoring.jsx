@@ -5,18 +5,7 @@ import Test from '../test.json'; // Correct import of JSON data
 const EventsMonitoring = () => {
   // It seems you are only using a single event from the JSON. If you have multiple events,
   // consider adjusting the state structure to handle an array of events.
-  useEffect(() => {
-    // Assuming Test might have multiple events in future updates, we directly use the first event for now
-    if (Test.success && Test.data.congestion_detected) {
-      setEventDetails({
-        camera: Test.data.camera_number,
-        congType: Test.data.congestion_level,
-        start: Test.data.detection_time,
-        end: Test.data.expected_end_time,
-        numCong: numCong+1, 
-      });
-    }
-  }, []);
+  
 
   // Use a single state object to manage the event details
   const [eventDetails, setEventDetails] = useState({
@@ -26,6 +15,19 @@ const EventsMonitoring = () => {
     end: null,
     numCong: 0,
   });
+
+  useEffect(() => {
+    // Assuming Test might have multiple events in future updates, we directly use the first event for now
+    if (Test.success && Test.data.congestion_detected) {
+      setEventDetails({
+        camera: Test.data.camera_number,
+        congType: Test.data.congestion_level,
+        start: Test.data.detection_time,
+        end: Test.data.expected_end_time,
+        numCong: eventDetails.numCong+1, 
+      });
+    }
+  }, []);
 
   return (
     <section>
