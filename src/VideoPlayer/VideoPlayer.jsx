@@ -17,7 +17,7 @@ function VideoPlayer() {
   const [showDelete, setShowDelete] = useState(false); // New state for showing delete buttons
   const [activeVideoSize, setActiveVideoSize] = useState({ width: 0, height: 0 });
   const [containerCenter, setContainerCenter] = useState([0, 0]);
-  const [noti, showNoti] = useState(false)
+  const [noti, setNoti] = useState(true)
 
 
   // Managing rows in state
@@ -38,6 +38,10 @@ function VideoPlayer() {
     setShowAddCamera(!showAddCamera);
   }
  
+  const toggleNoti = () => {
+    setNoti(false);
+  }
+
   const activeVideos = [showVideo1, showVideo2, showVideo3, showVideo4].filter(Boolean).length;
   const boxClass = `box ${activeVideos === 1 ? "full" : activeVideos === 2 ? "half" : "quarter"}`;
 
@@ -193,7 +197,7 @@ function VideoPlayer() {
        </h2>
        <div className="noti-button-group">
          <button className='dispatch'>Send Dispatch</button>
-         <button className='ack'>Acknowledge</button>
+         <button className='ack' onClick={toggleNoti}>Acknowledge</button>
        </div>
       </div>
       
