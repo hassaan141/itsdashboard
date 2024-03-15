@@ -17,14 +17,15 @@ function VideoPlayer() {
   const [showDelete, setShowDelete] = useState(false); // New state for showing delete buttons
   const [activeVideoSize, setActiveVideoSize] = useState({ width: 0, height: 0 });
   const [containerCenter, setContainerCenter] = useState([0, 0]);
+  const [noti, showNoti] = useState(false)
 
 
   // Managing rows in state
   const [rows, setRows] = useState([
-    { id: 1, camera: "Camera1", monitor: "TC, AC, NM", intersection: "Dixie & Dundas", showVideo: showVideo1, setShowVideo: setShowVideo1 },
-    { id: 2, camera: "Camera2", monitor: "TC, AC, NM", intersection: "Dixie & Dundas", showVideo: showVideo2, setShowVideo: setShowVideo2 },
-    { id: 3, camera: "Camera3", monitor: "TC, AC, NM", intersection: "Dixie & Dundas", showVideo: showVideo3, setShowVideo: setShowVideo3 },
-    { id: 4, camera: "Camera4", monitor: "TC, AC, NM", intersection: "Dixie & Dundas", showVideo: showVideo4, setShowVideo: setShowVideo4 },
+    { id: 1, camera: "Camera 1", monitor: "TC, AC, NM", intersection: "Dixie & Dundas", showVideo: showVideo1, setShowVideo: setShowVideo1 },
+    { id: 2, camera: "Camera 2", monitor: "TC, AC, NM", intersection: "Eglinton & Hurontario", showVideo: showVideo2, setShowVideo: setShowVideo2 },
+    { id: 3, camera: "Camera 3", monitor: "TC, AC, NM", intersection: "Terry Fox & Eglinton", showVideo: showVideo3, setShowVideo: setShowVideo3 },
+    { id: 4, camera: "Camera 4", monitor: "TC, AC, NM", intersection: "Dixie & Mavis", showVideo: showVideo4, setShowVideo: setShowVideo4 },
   ]);
   const toggleShowDelete = () => {
     setShowDelete(!showDelete);
@@ -66,6 +67,16 @@ function VideoPlayer() {
     React.createRef(),
   ]);
   
+  const addCamera = (cameraData) => {
+    const newCamera = {
+      id: rows.length + 1,
+      ...cameraData,
+      // showVideo: false,
+      monitor: "TC, AC, NM",
+      intersection: "Dixie & Dundas"
+    };
+    setRows([...rows, newCamera]);
+  };
 
   useEffect(() => {
     if (!showVideo1 && !showVideo2 && !showVideo3 && !showVideo4) {
@@ -161,7 +172,7 @@ function VideoPlayer() {
                   <td>{row.intersection}</td>
                   {showDelete && (
                     <td>
-                      <button className='-Button' onClick={() => deleteRow(row.id)}> - </button>
+                      <button className='-Button' onClick={() => deleteRow(row.id)}> − </button>
                     </td>
                   )}
                 </tr>
@@ -175,6 +186,16 @@ function VideoPlayer() {
             <button onClick={toggleShowDelete} className='removebutton button'>Remove Camera</button>
           </div>
       </div>
+
+      <div className='noti'>
+       <h2 className='notiHeading'>
+        Traffic Congestion Detected
+       </h2>
+       <div className="noti-button-group">
+         <button className='dispatch'>Send Dispatch</button>
+         <button className='ack'>Acknowledge</button>
+       </div>
+      </div>
       
       <div  className={`box ${boxClass}`}>
         {showText && (
@@ -186,7 +207,7 @@ function VideoPlayer() {
         {showAddCamera && 
         <div className='overlay'>
           <div className='addCameraPopup'>
-            <AddCameraModal onClose={toggleAddCamera} />
+            <AddCameraModal addCamera={addCamera} onClose={toggleAddCamera} />
           </div>
         </div>
       }
@@ -237,8 +258,8 @@ function VideoPlayer() {
        <EventsMonitoring />
       </div>
       {activeVideo && <VideoFrameSender videoElement={activeVideo} containerSize={activeVideoSize} onContainerCenterReceived={(centerArray) => setContainerCenter(centerArray)} />
-
-}
+      }
+      
   </div>
   ) 
 }

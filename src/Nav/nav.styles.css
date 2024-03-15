@@ -1,18 +1,18 @@
 :root {
-  --background-nav: #29292c; /* Black background for the navbar */
+  --background-color: #21252b; /* Black background for the navbar */
   --icon-color: #fff; /* White color for the icons */
-  --icon-size: 32px; /* Standard icon size */
-  --nav-width: 100px; /* Width of the navbar */
+  --icon-size: 28px; /* Standard icon size */
+  --nav-width: 110px; /* Width of the navbar */
   --nav-padding: 16px; /* Padding inside the navbar */
   --nav-item-gap: 2rem; /* Space between nav items */
   --logout-icon-size: 48px; /* Size of the logout icon */
   --logout-bg: #29292c; /* Logout background, same as nav for uniform color */
-  --logout-margin-top: auto; /* Push logout to the bottom */
+  --logout-margin-top: 40rem; /* Push logout to the bottom */
 
 }
 
 .NavWrapper {
-  border: 1px solid green;
+  border: 1px solid  white;
   position: fixed; /* Fix the position relative to the viewport */
   top: 1rem; /* Align top edge with the top of the viewport */
   left: 0; /* Align left edge with the left of the viewport */
@@ -33,6 +33,7 @@
 }
 
 .MenuHeader {
+  padding-top: 0.5rem;
   color: var(--icon-color);
   background: var(--background-nav);
 }
@@ -51,12 +52,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 3rem;
+  padding-top: 5rem;
   gap: var(--nav-item-gap);
   background-color: var(--background-nav); /* Ensure uniform color */
+  
 }
 
 .NavItem {
+  
   color: var(--icon-color);
   background-color: var(--background-nav);
   width: var(--icon-size);
@@ -86,10 +89,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 16rem;
+ 
 }
 
 .Logout img {
   background-color: var(--background-nav);
-  width: 40%; /* Smaller than the container to create padding */
+  width: 50%; /* Smaller than the container to create padding */
   height: auto;
 }

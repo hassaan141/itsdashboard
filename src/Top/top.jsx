@@ -8,7 +8,7 @@ const Top =()=> {
     <nav className='top'>
       
       <h1>
-        AirMatrix ITS
+        AirMatrix ITS Dashboard
       </h1>
 
       <div className='date'>

@@ -2,8 +2,8 @@ import React from 'react';
 import './nav.styles.css'; 
 
 // Importing SVG icons to be used in the navigation bar
-import AirMatrixLogo from './logo/airmatrix-logo.svg';
-import DashboardIcon from './logo/dashboard.svg';
+import AirMatrixLogo from './logo/airmatrix-mobile.svg';
+import DashboardIcon from './logo/download.svg';
 import AnalysisIcon from './logo/analysis.svg';
 import ProfileIcon from './logo/profile.svg';
 import SettingsIcon from './logo/settings.svg';
@@ -12,7 +12,7 @@ import LogoutIcon from './logo/logout.svg';
 // Functional component to render an individual navigation item
 // It receives an 'icon' prop which is the path to an SVG icon
 const NavItem = ({ icon }) => (
-  <div className="NavItem">
+  <div className="NavItem" >
     <img src={icon} alt='' />
   </div>
 );

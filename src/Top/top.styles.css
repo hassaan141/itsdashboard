@@ -1,5 +1,5 @@
 .top {
-  background-color: #333; /* Dark background for the topbar */
+  background-color: #21252b; /* Dark background for the topbar */
   color: #ffffff; /* Light text color for contrast */
   display: flex;
   justify-content: space-between; /* Aligns children on opposite ends */
@@ -8,8 +8,8 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
   margin-left: 9rem;
   margin-top:1%;
-  height: 4rem;
-  width: 75rem;
+  height: 5rem;
+  width: 110rem;
   margin-right:1rem;
   border-radius: 1rem;
 }
@@ -18,7 +18,7 @@ h1 {
   font-size: 2rem; /* Larger text for the dashboard title */
   margin: 0; /* Removes default margin */
   font-weight: bold; /* Normal font weight for the title */
-  background-color: #333;
+  background-color: #21252b;
   padding-left: 2rem;
 }
 
@@ -28,7 +28,7 @@ h1 {
   text-transform: uppercase; /* Uppercase styling for the date */
   letter-spacing: 0.05em; /* Spacing between letters for aesthetics */
   color: #cccccc; /* Slightly lighter text color for the date */
-  background-color: #333;
+  background-color: #21252b;
   padding-right: 2rem;
   font-size: 1rem;
   font-weight: bold;
