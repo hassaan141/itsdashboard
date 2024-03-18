@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { useData } from './dataContext';
+import VideoPlayer from '../VideoPlayer/VideoPlayer';
 
-function VideoFrameSender({ videoElement, containerSize, onContainerCenterReceived, videoId }) {
+function VideoFrameSender({videoElement, containerSize, onContainerCenterReceived, videoId }) {
   const { setCenterData } = useData();
+
 
   const sendFrameAndSize = () => {
     const canvas = document.createElement('canvas');
@@ -11,11 +13,18 @@ function VideoFrameSender({ videoElement, containerSize, onContainerCenterReceiv
     const ctx = canvas.getContext('2d');
     ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 
+ 
+
     canvas.toBlob(blob => {
       const formData = new FormData();
       formData.append('frame', blob, 'frame.jpg');
       formData.append('video_id', videoId);
       formData.append('container_size', JSON.stringify(containerSize));
+
+      console.log("Sending the following data to the backend:");
+      for (let key of formData.keys()) {
+        //console.log(`${key}:`, formData.get(key));
+      }
 
       fetch('http://localhost:5000/process', {
         method: 'POST',
@@ -23,34 +32,39 @@ function VideoFrameSender({ videoElement, containerSize, onContainerCenterReceiv
       })
       .then(response => response.json())
       .then(data => {
-        // Ensure data.success and data.data are truthy before trying to access data.data.is_congestion
-        if (data.success && data.data) {
-          // Log the congestion status along with the video ID
-          const isCongestion = data.data.is_congestion;
-          console.log(`Video ID: ${videoId}, is_congestion: ${isCongestion}`);
+        if (data.success && data.data && data.data.is_congestion) {
+            console.log('is_congesstion is true');
 
-          // If there's a container center, call the handler
-          if (data.data.container_center) {
-            onContainerCenterReceived(data.data.container_center);
-          }
-          // If there's image center data, update the context
-          if (data.data.image_center && Array.isArray(data.data.image_center)) {
-            setCenterData(data.data.image_center);
+           // console.log(data.video_id);
+            console.log(`${data.data.video_id}`);
+            const videoIdElement = document.querySelector(`.video${videoId}`);
+            if (videoIdElement) {
+              videoIdElement.style.border = '3px solid red'; // Add border to the dynamically selected div
+    }
+        } else {
+            console.log('Either is_congestion is false or success is false');
+        }
+      })
+      .then(data => {
+        if (data.container_center) {
+          onContainerCenterReceived(data.container_center);
+          if (data.image_center && Array.isArray(data.image_center)) {
+            setCenterData(data.image_center);
           }
         } else {
-          console.error('Error or negative response from server:', data);
+          console.error('Unexpected response format:', data);
         }
       })
       .catch(error => {
-        console.error('Network or server error:', error);
+        console.error('Error:', error);
       });
     }, 'image/jpeg');
   };
 
   useEffect(() => {
-    const intervalId = setInterval(sendFrameAndSize, 500);
+    const intervalId = setInterval(sendFrameAndSize, 1000);
     return () => clearInterval(intervalId);
-  }, [videoElement, containerSize, setCenterData, onContainerCenterReceived, videoId]); // Include videoId in the dependency array
+  }, [videoElement, containerSize, setCenterData, onContainerCenterReceived]);
 
   return null;
 }
