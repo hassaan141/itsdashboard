@@ -18,15 +18,17 @@ function VideoPlayer() {
   const [activeVideoSize, setActiveVideoSize] = useState({ width: 0, height: 0 });
   const [containerCenter, setContainerCenter] = useState([0, 0]);
   const [noti, setNoti] = useState(true)
+  const [activeVideoID, setActiveVideoID] = useState(null)
 
 
   // Managing rows in state
   const [rows, setRows] = useState([
-    { id: 1, camera: "Camera 1", monitor: "TC, AC, NM", intersection: "Dixie & Dundas", showVideo: showVideo1, setShowVideo: setShowVideo1 },
-    { id: 2, camera: "Camera 2", monitor: "TC, AC, NM", intersection: "Eglinton & Hurontario", showVideo: showVideo2, setShowVideo: setShowVideo2 },
-    { id: 3, camera: "Camera 3", monitor: "TC, AC, NM", intersection: "Terry Fox & Eglinton", showVideo: showVideo3, setShowVideo: setShowVideo3 },
-    { id: 4, camera: "Camera 4", monitor: "TC, AC, NM", intersection: "Dixie & Mavis", showVideo: showVideo4, setShowVideo: setShowVideo4 },
+    { id: 1, camera: "Camera 1", monitor: "TC, AC, NM", intersection: "Dixie & Dundas", showVideo: showVideo1, setShowVideo: setShowVideo1, videoId: "vid1" },
+    { id: 2, camera: "Camera 2", monitor: "TC, AC, NM", intersection: "Eglinton & Hurontario", showVideo: showVideo2, setShowVideo: setShowVideo2, videoId: "vid2" },
+    { id: 3, camera: "Camera 3", monitor: "TC, AC, NM", intersection: "Terry Fox & Eglinton", showVideo: showVideo3, setShowVideo: setShowVideo3, videoId: "vid3" },
+    { id: 4, camera: "Camera 4", monitor: "TC, AC, NM", intersection: "Dixie & Mavis", showVideo: showVideo4, setShowVideo: setShowVideo4, videoId: "vid4" },
   ]);
+  
   const toggleShowDelete = () => {
     setShowDelete(!showDelete);
   };
@@ -75,7 +77,7 @@ function VideoPlayer() {
     const newCamera = {
       id: rows.length + 1,
       ...cameraData,
-      // showVideo: false,
+      showVideo: false,
       monitor: "TC, AC, NM",
       intersection: "Dixie & Dundas"
     };
@@ -95,6 +97,7 @@ function VideoPlayer() {
     if (videoElement) {
       videoElement.play();
       setActiveVideo(videoElement); // Set the ref of the playing video as active
+      setActiveVideoID(rows[videoIndex].id);
       
       // Immediately calculate and set the video size
       if (videoElement.parentNode) {
@@ -105,7 +108,6 @@ function VideoPlayer() {
     }
   };
 
-  
 
   const logVideoSize = (index) => {
     const videoElement = videoRefs.current[index].current;
@@ -240,7 +242,7 @@ function VideoPlayer() {
       {showVideo3 && (
         <div className='video3'>
           <video ref={videoRefs.current[2]} autoPlay muted onLoadedMetadata={() => logVideoSize(2)}>
-            <source src={`${process.env.PUBLIC_URL}/vid3.mp4`} type="video/mp4" />
+            <source src={`${process.env.PUBLIC_URL}/test_3.mp4`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           <div style={dotStyle}></div>
@@ -261,7 +263,7 @@ function VideoPlayer() {
       <div className='eventMonitoring'>
        <EventsMonitoring />
       </div>
-      {activeVideo && <VideoFrameSender videoElement={activeVideo} containerSize={activeVideoSize} onContainerCenterReceived={(centerArray) => setContainerCenter(centerArray)} />
+      {activeVideo && <VideoFrameSender videoElement={activeVideo} containerSize={activeVideoSize} onContainerCenterReceived={(centerArray) => setContainerCenter(centerArray)} videoId = {activeVideoID}/>
       }
       
   </div>
