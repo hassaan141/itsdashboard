@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useData } from './dataContext';
 import { useCongestion } from '../Congestion/CongestionContext';
 
 function VideoFrameSender({ videoElement, containerSize, onContainerCenterReceived, videoId }) {
   const { updateCongestionState } = useCongestion(); // Using the context to get the update function
+  const [isCongested, setIsCongested] = useState(false);
+
 
   const sendFrameAndSize = () => {
     const canvas = document.createElement('canvas');
@@ -27,9 +29,11 @@ function VideoFrameSender({ videoElement, containerSize, onContainerCenterReceiv
         if (data.success && data.data && data.data.is_congestion) {
           console.log('Congestion is true for videoId:', videoId);
           updateCongestionState(videoId, true); // Update global state to indicate congestion
+          setIsCongested(true);
         } else {
           console.log('Congestion is false for videoId:', videoId);
           updateCongestionState(videoId, false); // Update global state to indicate no congestion
+          setIsCongested(false);
         }
       })
       .catch(error => {
@@ -42,6 +46,13 @@ function VideoFrameSender({ videoElement, containerSize, onContainerCenterReceiv
     const intervalId = setInterval(sendFrameAndSize, 1000);
     return () => clearInterval(intervalId);
   }, [videoElement, containerSize, videoId]);
+
+  useEffect(() => {
+    const videoIdElement = document.querySelector(`.video${videoId}`);
+    if (videoIdElement) {
+      videoIdElement.style.border = isCongested ? '3px solid red' : 'none';
+    }
+  }, [isCongested, videoId]);
 
   return null;
 }
