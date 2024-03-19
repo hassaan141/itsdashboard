@@ -321,6 +321,10 @@
 
   /* Notification Styling */
 
+  .video-congested {
+    border: 3px solid red;
+  }
+
 
   .noti {
     background-color: #21252b; /* Changed from transparent for visibility */

@@ -4,6 +4,7 @@ import VideoPlayer from './VideoPlayer/VideoPlayer.jsx'; // Adjust the path as n
 import './App.css';   
 import Top from './Top/top';
 import Nav from './Nav/nav';
+import { CongestionProvider } from './Congestion/CongestionContext'; // Adjust the path as necessary
 
 import { DataProvider } from './sendBackEnd/dataContext';
 
@@ -16,9 +17,11 @@ function App() {
 
     <Nav/>
   
-  
+    
     <DataProvider>
+    <CongestionProvider>
     <VideoPlayer />
+    </CongestionProvider>
     </DataProvider>
     
     
