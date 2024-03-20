@@ -269,14 +269,14 @@ function VideoPlayer({videoId}) {
        <EventsMonitoring />
       </div>
       {activeVideoss.map((videoElement, index) => (
-        <VideoFrameSender
-        key={activeVideoIDs[index]}
-        videoElement={videoElement}
-        containerSize={activeVideoSizes[index]}
-        onContainerCenterReceived={(centerArray) => setContainerCenter(centerArray)}
-      videoId={activeVideoIDs[index]}
+      <VideoFrameSender
+      key={activeVideoIDs[index]} // Ensure this key is unique
+      videoElement={videoElement}             
+      containerSize={activeVideoSizes[index]}
+      videoId={activeVideoIDs[index]} // Correctly scoped prop
       />
-))}
+      ))}
+
       
   </div>
   ) 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useData } from './dataContext';
 import { useCongestion } from '../Congestion/CongestionContext';
 
-function VideoFrameSender({ videoElement, containerSize, onContainerCenterReceived, videoId }) {
+function VideoFrameSender({key, videoElement, containerSize, videoId }) {
   const { updateCongestionState } = useCongestion(); // Using the context to get the update function
   const [isCongested, setIsCongested] = useState(false);
 
