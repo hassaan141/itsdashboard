@@ -20,6 +20,7 @@ function VideoPlayer({videoId}) {
   const [noti, setNoti] = useState(true)
   const [activeVideoIDs, setActiveVideoIDs] = useState([])
   const { congestionStates } = useCongestion();
+  
   const isCongested = congestionStates[videoId];
 
   const videoClass = isCongested ? 'video-congested' : '';
@@ -128,26 +129,61 @@ function VideoPlayer({videoId}) {
     }
   };
 
+  // useEffect(() => {
+  //   const handleResize = (index) => {
+  //     // Check if there's an active video and it has a parent node
+  //     if (activeVideoss[index] && activeVideoss[index].parentNode) {
+  //       const width = activeVideoss[index].parentNode.clientWidth;
+  //       const height = activeVideoss[index].parentNode.clientHeight;
+  //       setActiveVideoSizes((prevSizes) => {
+  //         const newSizes = [...prevSizes]; // Create a copy of the previous sizes array
+  //         newSizes[index] = { width, height }; // Update the size for the current index
+  //         return newSizes; // Return the updated sizes array
+  //       });
+  //     }
+  //   };
+  
+  //   // Call once to set initial size
+  //   activeVideoss.forEach((_, index) => handleResize(index));
+  
+  //   // Add event listener for future resizes
+  //   const resizeHandler = () => {
+  //     activeVideoss.forEach((_, index) => handleResize(index));
+  //   };
+  //   window.addEventListener('resize', resizeHandler);
+  
+  //   // Cleanup function to remove event listener
+  //   return () => {
+  //     window.removeEventListener('resize', resizeHandler);
+  //   };
+  // }, [activeVideoss]);
+
   useEffect(() => {
     const handleResize = () => {
-      // Check if there's an active video and it has a parent node
-      if (activeVideoss && activeVideoss.parentNode) {
-        const width = activeVideoss.parentNode.clientWidth;
-        const height = activeVideoss.parentNode.clientHeight;
-        setActiveVideoSizes({ width, height }); // Update the state with new size
-      }
+      activeVideoss.forEach((videoElement, index) => {
+        if (videoElement && videoElement.parentNode) {
+          const width = videoElement.parentNode.clientWidth;
+          const height = videoElement.parentNode.clientHeight;
+          setActiveVideoSizes((prevSizes) => {
+            const newSizes = [...prevSizes]; // Create a copy of the previous sizes array
+            newSizes[index] = { width, height }; // Update the size for the current index
+            return newSizes; // Return the updated sizes array
+          });
+        }
+      });
     };
-
+  
     // Call once to set initial size
     handleResize();
-
+  
     // Add event listener for future resizes
     window.addEventListener('resize', handleResize);
-
+  
     // Cleanup function to remove event listener
     return () => window.removeEventListener('resize', handleResize);
-  }, [activeVideoss]); // Dependency array, effect reruns if activeVideo changes
+  }, [activeVideoss]);
 
+ // className={`video-container ${videoClass}`}
   return (
     <div className={`video-container ${videoClass}`}>
     
@@ -258,7 +294,7 @@ function VideoPlayer({videoId}) {
         {showVideo4 && (
         <div className='video4'>
           <video ref={videoRefs.current[3]} autoPlay muted onLoadedMetadata={() => logVideoSize(3)}>
-            <source src={`${process.env.PUBLIC_URL}/vid4.mp4`} type="video/mp4" />
+            <source src={`${process.env.PUBLIC_URL}/vid3.mp4`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
@@ -269,14 +305,14 @@ function VideoPlayer({videoId}) {
        <EventsMonitoring />
       </div>
       {activeVideoss.map((videoElement, index) => (
-      <VideoFrameSender
-      key={activeVideoIDs[index]} // Ensure this key is unique
-      videoElement={videoElement}             
-      containerSize={activeVideoSizes[index]}
-      videoId={activeVideoIDs[index]} // Correctly scoped prop
+        <VideoFrameSender
+        key={activeVideoIDs[index]}
+        videoElement={videoElement}
+        containerSize={activeVideoSizes[index]}
+        onContainerCenterReceived={(centerArray) => setContainerCenter(centerArray)}
+      videoId={activeVideoIDs[index]}
       />
-      ))}
-
+))}
       
   </div>
   ) 
