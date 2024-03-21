@@ -48,7 +48,7 @@ function VideoPlayer({videoId}) {
     setNoti(false);
   }
 
-  const [showNoti, setShowNoti] = useState(true);
+  const [showNoti, setShowNoti] = useState(false);
 
   // Effect to react to changes in congestionEvent
   useEffect(() => {
@@ -252,7 +252,7 @@ function VideoPlayer({videoId}) {
       {showNoti && (
         <div className='noti'>
           <h2 className='notiHeading'>
-            Traffic Congestion Detected on Camera   
+            Traffic Congestion Detected on Camera {congestionEvent.camera}  
           </h2>
           <div className="noti-button-group">
             <button className='dispatch'>Send Dispatch</button>
