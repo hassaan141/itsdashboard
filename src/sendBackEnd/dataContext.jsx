@@ -4,14 +4,14 @@ const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
   const [centerData, setCenterData] = useState([]);
-  const [responseData, setResponseData] = useState(null); // Add this line
+  const [responseData, setResponseData] = useState(null);
+  const [congestionEvent, setCongestionEvent] = useState(null); // Add state for tracking congestion event
 
   return (
-    <DataContext.Provider value={{ centerData, setCenterData, responseData, setResponseData }}> {/* Update this line */}
+    <DataContext.Provider value={{ centerData, setCenterData, responseData, setResponseData, congestionEvent, setCongestionEvent }}>
       {children}
     </DataContext.Provider>
   );
 };
-
 // Custom hook to use the context
 export const useData = () => useContext(DataContext);
