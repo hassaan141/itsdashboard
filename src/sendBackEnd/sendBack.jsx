@@ -5,6 +5,7 @@ import { useCongestion } from '../Congestion/CongestionContext';
 function VideoFrameSender({ videoElement, containerSize, onContainerCenterReceived, videoId }) {
   const { updateCongestionState } = useCongestion(); // Using the context to get the update function
   const [isCongested, setIsCongested] = useState(false);
+  const {setResponseData} = useData();
 
 
   const sendFrameAndSize = () => {
@@ -24,9 +25,9 @@ function VideoFrameSender({ videoElement, containerSize, onContainerCenterReceiv
       formData.append('height', containerSize.height.toString());
      // formData.append('container_size', JSON.stringify(containerSize));
     
-     console.log(videoId);
-     console.log(containerSize.width.toString());
-     console.log(containerSize.height.toString());
+    //  console.log(videoId);
+    //  console.log(containerSize.width.toString());
+    //  console.log(containerSize.height.toString());
 
 
 
@@ -39,7 +40,8 @@ function VideoFrameSender({ videoElement, containerSize, onContainerCenterReceiv
         return response.json();
     })
       .then(data => {
-        console.log(data);
+        //console.log(data);
+        setResponseData(data)
         if (data.success && data.data && data.data.is_congestion) {
           console.log('Congestion is true for videoId:', videoId);
           // // console.log(data);

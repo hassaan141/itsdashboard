@@ -266,7 +266,7 @@ function VideoPlayer({videoId}) {
         {/* Existing JSX */}
         {showVideo1 && (
         <div className='video1'>
-          <video ref={videoRefs.current[0]}  autoPlay muted onLoadedMetadata={() => logVideoSize(0)}>
+          <video ref={videoRefs.current[0]}  autoPlay muted loop onLoadedMetadata={() => logVideoSize(0)}>
             <source src={`${process.env.PUBLIC_URL}/vid1.mp4`} type="video/mp4" />
             Your browser does not support the video tag.
           </video> 
@@ -275,7 +275,7 @@ function VideoPlayer({videoId}) {
 
         {showVideo2 && (
         <div className='video2'>
-          <video ref={videoRefs.current[1]} autoPlay muted onLoadedMetadata={() => logVideoSize(1)}>
+          <video ref={videoRefs.current[1]} autoPlay muted loop onLoadedMetadata={() => logVideoSize(1)}>
             <source src={`${process.env.PUBLIC_URL}/vid2.mp4`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
@@ -284,8 +284,8 @@ function VideoPlayer({videoId}) {
 
       {showVideo3 && (
         <div className='video3'>
-          <video ref={videoRefs.current[2]} autoPlay muted onLoadedMetadata={() => logVideoSize(2)}>
-            <source src={`${process.env.PUBLIC_URL}/test_3.mp4`} type="video/mp4" />
+          <video ref={videoRefs.current[2]} autoPlay muted loop onLoadedMetadata={() => logVideoSize(2)}>
+            <source src={`${process.env.PUBLIC_URL}/test_4.mp4`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
@@ -293,7 +293,7 @@ function VideoPlayer({videoId}) {
 
         {showVideo4 && (
         <div className='video4'>
-          <video ref={videoRefs.current[3]} autoPlay muted onLoadedMetadata={() => logVideoSize(3)}>
+          <video ref={videoRefs.current[3]} autoPlay muted loop onLoadedMetadata={() => logVideoSize(3)}>
             <source src={`${process.env.PUBLIC_URL}/vid3.mp4`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
