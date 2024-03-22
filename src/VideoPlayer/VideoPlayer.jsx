@@ -20,7 +20,7 @@ function VideoPlayer({videoId}) {
   const [noti, setNoti] = useState(true)
   const [activeVideoIDs, setActiveVideoIDs] = useState([])
   const { congestionStates } = useCongestion();
-  
+  const { congestionEvent } = useData();
   const isCongested = congestionStates[videoId];
 
   const videoClass = isCongested ? 'video-congested' : '';
@@ -47,6 +47,17 @@ function VideoPlayer({videoId}) {
   const toggleNoti = () => {
     setNoti(false);
   }
+
+  const [showNoti, setShowNoti] = useState(false);
+
+  // Effect to react to changes in congestionEvent
+  useEffect(() => {
+    if (congestionEvent && congestionEvent.congType === 'Yes') {
+      setShowNoti(true); // Show notification if there's a congestion
+    } else {
+      setShowNoti(false); // Hide notification if there's no congestion
+    }
+  }, [congestionEvent]); // Dependency on congestionEvent to trigger re-evaluation
 
   const activeVideos = [showVideo1, showVideo2, showVideo3, showVideo4].filter(Boolean).length;
   const boxClass = `box ${activeVideos === 1 ? "full" : activeVideos === 2 ? "half" : "quarter"}`;
@@ -238,15 +249,17 @@ function VideoPlayer({videoId}) {
           </div>
       </div>
 
-      <div className='noti'>
-       <h2 className='notiHeading'>
-        Traffic Congestion Detected
-       </h2>
-       <div className="noti-button-group">
-         <button className='dispatch'>Send Dispatch</button>
-         <button className='ack' onClick={toggleNoti}>Acknowledge</button>
-       </div>
-      </div>
+      {showNoti && (
+        <div className='noti'>
+          <h2 className='notiHeading'>
+            Traffic Congestion Detected on Camera {congestionEvent.camera}  
+          </h2>
+          <div className="noti-button-group">
+            <button className='dispatch'>Send Dispatch</button>
+            <button className='ack' onClick={() => setShowNoti(false)}>Acknowledge</button>
+          </div>
+        </div>
+      )}
       
       <div  className={`box ${boxClass}`}>
         {showText && (
